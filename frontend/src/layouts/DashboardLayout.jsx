@@ -6,6 +6,7 @@ export default function DashboardLayout() {
   const { user, logout } = useAuth();
   const roles = user?.roles || [];
 
+  
   const navItems = [
     { to: '/dashboard', label: 'Dashboard' },
     ...(roles.includes('company_admin') || roles.includes('manager')

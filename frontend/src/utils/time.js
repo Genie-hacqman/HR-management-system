@@ -6,6 +6,7 @@ export function formatMinutes(minutes) {
   return `${h}h ${m}m`;
 }
 
+
 export function formatTime(dateTimeString) {
   if (!dateTimeString) return '—';
   return new Date(dateTimeString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
