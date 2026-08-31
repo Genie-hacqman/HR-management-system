@@ -1,16 +1,3 @@
--- =====================================================================
--- HR Management SaaS Platform — Database Schema
--- Phase 1: Authentication, Companies, Roles & Permissions
--- =====================================================================
--- Engine: MySQL 8+
--- Notes:
---   * Every company-scoped table carries `company_id` with an FK + index.
---   * Soft deletion is implemented via `deleted_at` where appropriate.
---   * Tables for later phases (attendance, leave, payroll, etc.) are
---     included here as commented stubs so the schema is easy to extend
---     without restructuring what Phase 1 already relies on.
--- =====================================================================
-
 CREATE DATABASE IF NOT EXISTS hr_saas
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
@@ -130,9 +117,7 @@ CREATE TABLE IF NOT EXISTS user_roles (
   CONSTRAINT fk_user_roles_company FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
--- refresh_tokens (JWT refresh-token store, supports logout/revocation)
--- ---------------------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS refresh_tokens (
   id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id     BIGINT UNSIGNED NOT NULL,
@@ -144,9 +129,6 @@ CREATE TABLE IF NOT EXISTS refresh_tokens (
   CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------
--- departments
--- ---------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS departments (
   id           BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   company_id   BIGINT UNSIGNED NOT NULL,
